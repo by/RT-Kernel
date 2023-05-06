@@ -49,7 +49,7 @@ make menuconfig
 ```
 ## Select General Setup/Preemption Model/Fully Preemptible Kernel (Real-Time)
 ```bash
-## I've made the following changes specifically fro my NTP server to also enable kernel PPS:
+## I've made the following changes specifically for my NTP server to also enable kernel PPS:
 ##-CPU_FREQ_DEFAULT_GOV_POWERSAVE y
 ##-CPU_FREQ_GOV_CONSERVATIVE y
 ##-CPU_FREQ_GOV_ONDEMAND y
@@ -70,6 +70,8 @@ make menuconfig
 ##+RTC_INTF_DEV_UIE_EMUL y
 ##+VIRT_CPU_ACCOUNTING_GEN y
 ```
+See also https://github.com/by/RT-Kernel/blob/main/bcm2711_defconfig_RT_NTP
+
 ## Build the kernel using all 4 cores (and try gcc optimization level -O3)
 ```bash
 make prepare
