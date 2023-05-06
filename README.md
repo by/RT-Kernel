@@ -7,12 +7,12 @@ sudo apt install git bc bison flex libssl-dev make
 sudo apt install libncurses5-dev
 sudo apt install raspberrypi-kernel-headers
 ```
-## Clone the git, in this case kernel 6.3
+## Clone the git, in this case kernel 6.3, from from https://github.com/raspberrypi/linux/tree/rpi-6.3.y
 ```bash
 cd ~
 git clone --depth 1 --branch rpi-6.3.y https://github.com/raspberrypi/linux
 ```
-## Get the RT-patch, in this case RT11 for kernel 6.3
+## Get the RT-patch, in this case RT11 for kernel 6.3, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.3/
 ```bash
 cd ~/kernel
 wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.3/patch-6.3-rt11.patch.xz
