@@ -1,5 +1,5 @@
 # RT-Kernel
-How to compile 64-bit RT-kernel for Raspberry Pi
+How to compile 64-bit RT-kernel for Raspberry Pi 4
 
 ## Prepare the environment
 ```bash
