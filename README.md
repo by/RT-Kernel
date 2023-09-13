@@ -7,16 +7,16 @@ sudo apt install git bc bison flex libssl-dev make
 sudo apt install libncurses5-dev
 sudo apt install raspberrypi-kernel-headers
 ```
-## Clone the git, in this case kernel 6.5, from from https://github.com/raspberrypi/linux/tree/rpi-6.5.y
+## Clone the git, in this case kernel 6.6, from from https://github.com/raspberrypi/linux/tree/rpi-6.6.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-6.5.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-6.6.y https://github.com/raspberrypi/linux
 ```
-## Get the RT-patch, in this case RT6 for kernel 6.5, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.5/
+## Get the RT-patch, in this case RT6 for kernel 6.6, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.5/patch-6.5-rt6.patch.xz
-xz -d patch-6.5-rt6.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6-rc1-rt1.patch.xz
+xz -d patch-6.6-rc1-rt1.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
@@ -33,11 +33,11 @@ git pull --rebase
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.5-rt6.patch
+patch -p1 < ~/kernel/patch-6.6-rc1-rt1.patch
 ```
 ## Undo patch if necessary
 ```bash
-#patch -R -p1 < ~/kernel/patch-6.5-rt6.patch
+#patch -R -p1 < ~/kernel/patch-6.6-rc1-rt1.patch
 ```
 ## Make for Raspberry Pi 4
 ```bash
