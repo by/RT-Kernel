@@ -1,5 +1,5 @@
 # RT-Kernel
-How to compile 64-bit RT-kernel for Raspberry Pi 4
+How to compile 64-bit RT-kernel for Raspberry Pi 4 for Debian bookworm (i.e., /boot/firmware/)
 
 ## Prepare the environment
 ```bash
@@ -12,11 +12,11 @@ sudo apt install raspberrypi-kernel-headers
 cd ~
 git clone --depth 1 --branch rpi-6.6.y https://github.com/raspberrypi/linux
 ```
-## Get the RT-patch, in this case RT6 for kernel 6.6, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/
+## Get the RT-patch, in this case RT14 for kernel 6.6, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6-rc2-rt4.patch.xz
-xz -d patch-6.6-rc2-rt4.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6-rt14.patch.xz
+xz -d patch-6.6-rt14.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
@@ -33,11 +33,11 @@ git pull --rebase
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.6-rc2-rt4.patch
+patch -p1 < ~/kernel/patch-6.6-rt14.patch
 ```
 ## Undo patch if necessary
 ```bash
-#patch -R -p1 < ~/kernel/patch-6.6-rc2-rt4.patch
+#patch -R -p1 < ~/kernel/patch-6.6-rt14.patch
 ```
 ## Make for Raspberry Pi 4
 ```bash
@@ -72,7 +72,7 @@ make menuconfig
 ```
 See also https://github.com/by/RT-Kernel/blob/main/bcm2711_defconfig_RT_NTP
 
-## Build the kernel using all 4 cores (and try gcc optimization level -O3)
+## Build the kernel using all 4 cores (and try gcc optimization level -O3, if you like)
 ```bash
 make prepare
 make -j4 Image.gz modules dtbs
@@ -81,18 +81,18 @@ sudo make modules_install
 ```
 ## Create the required directories once
 ```bash
-#sudo mkdir /boot/NTP
-#sudo mkdir /boot/NTP/overlays-NTP
+sudo mkdir /boot/firmware/NTP
+sudo mkdir /boot/NTP/firmware/overlays-NTP
 ```
 ## Add this to /boot/config.txt in order to preserve the standard kernel
 ```bash
-#os_prefix=NTP/
-#overlay_prefix=overlays-NTP/
-#kernel=/kernel8-ntp.img
+os_prefix=NTP/
+overlay_prefix=overlays-NTP/
+kernel=/kernel8-ntp.img
 ```
 ## Copy the file ino the right directories
 ```bash
-sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/NTP/; sudo cp arch/arm64/boot/dts/overlays/*.dtb* /boot/NTP/overlays-NTP/; sudo cp arch/arm64/boot/dts/overlays/README /boot/NTP/overlays-NTP/; sudo cp arch/arm64/boot/Image.gz /boot/kernel8-NTP.img
+sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/NTP/; sudo cp arch/arm64/boot/dts/overlays/*.dtb* /boot/firmware/NTP/overlays-NTP/; sudo cp arch/arm64/boot/dts/overlays/README /boot/firmware/NTP/overlays-NTP/; sudo cp arch/arm64/boot/Image.gz /boot/firmware/kernel8-NTP.img
 ```
 ## Reboot to activate the kernel
 ```bash
