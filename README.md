@@ -7,16 +7,16 @@ sudo apt install git bc bison flex libssl-dev make
 sudo apt install libncurses5-dev
 sudo apt install raspberrypi-kernel-headers
 ```
-## Clone the git, in this case kernel 6.6, from from https://github.com/raspberrypi/linux/tree/rpi-6.6.y
+## Clone the git, in this case kernel 6.7, from from https://github.com/raspberrypi/linux/tree/rpi-6.7.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-6.6.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-6.7.y https://github.com/raspberrypi/linux
 ```
-## Get the RT-patch, in this case RT14 for kernel 6.6, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/
+## Get the RT-patch, in this case RT1 for kernel 6.7, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.7/
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6-rt14.patch.xz
-xz -d patch-6.6-rt14.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.7/patch-6.7-rc2-rt1.patch.xz
+xz -d patch-6.7-rc2-rt1.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
@@ -33,11 +33,11 @@ git pull --rebase
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.6-rt14.patch
+patch -p1 < ~/kernel/patch-6.7-rc2-rt1.patch
 ```
-## Undo patch if necessary
+## Undo prior patch if necessary
 ```bash
-#patch -R -p1 < ~/kernel/patch-6.6-rt14.patch
+#patch -R -p1 < ~/kernel/patch-6.7-rc2-rt1.patch
 ```
 ## Make for Raspberry Pi 4
 ```bash
