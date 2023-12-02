@@ -15,8 +15,8 @@ git clone --depth 1 --branch rpi-6.7.y https://github.com/raspberrypi/linux
 ## Get the RT-patch, in this case RT1 for kernel 6.7, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.7/
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.7/patch-6.7-rc2-rt1.patch.xz
-xz -d patch-6.7-rc2-rt1.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.7/patch-6.7-rc3-rt3.patch.xz
+xz -d patch-6.7-rc3-rt3.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
@@ -33,11 +33,11 @@ git pull --rebase
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.7-rc2-rt1.patch
+patch -p1 < ~/kernel/patch-6.7-rc3-rt3.patch
 ```
 ## Undo prior patch if necessary
 ```bash
-#patch -R -p1 < ~/kernel/patch-6.7-rc2-rt1.patch
+#patch -R -p1 < ~/kernel/patch-6.7-rc3-rt3.patch
 ```
 ## Make for Raspberry Pi 4
 ```bash
@@ -54,7 +54,6 @@ make menuconfig
 ##-CPU_FREQ_GOV_CONSERVATIVE y
 ##-CPU_FREQ_GOV_ONDEMAND y
 ##-CPU_FREQ_GOV_PERFORMANCE y
-##-CPU_FREQ_GOV_SCHEDUTIL y
 ##-CPU_FREQ_GOV_USERSPACE y
 ##-LEDS_TRIGGER_CPU y
 ##-NO_HZ y
@@ -62,12 +61,13 @@ make menuconfig
 ##-PREEMPT y
 ## LOCALVERSION "-v8" -> "-v8-NTP"
 ## PPS_CLIENT_GPIO m -> y
-##+CONTEXT_TRACKING_USER_FORCE n
 ##+CPU_FREQ_DEFAULT_GOV_PERFORMANCE y
 ##+HZ_1000 y
+##+IRQ_TIME_ACCOUNTING y
 ##+NTP_PPS y
 ##+PREEMPT_RT y
 ##+RTC_INTF_DEV_UIE_EMUL y
+##-CONTEXT_TRACKING_USER_FORCE n
 ##+VIRT_CPU_ACCOUNTING_GEN y
 ```
 See also https://github.com/by/RT-Kernel/blob/main/bcm2711_defconfig_RT_NTP
