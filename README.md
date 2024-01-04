@@ -88,7 +88,7 @@ sudo mkdir /boot/firmware/NTP/overlays-NTP
 ```bash
 os_prefix=NTP/
 overlay_prefix=overlays-NTP/
-kernel=/kernel8-ntp.img
+kernel=/kernel8-NTP.img
 ```
 ## Copy the file ino the right directories
 ```bash
