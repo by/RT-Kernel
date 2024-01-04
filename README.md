@@ -84,7 +84,7 @@ sudo make modules_install
 sudo mkdir /boot/firmware/NTP
 sudo mkdir /boot/firmware/NTP/overlays-NTP
 ```
-## Add this to /boot/config.txt in order to preserve the standard kernel
+## Add this to /boot/firmware/config.txt in order to preserve the standard kernel
 ```bash
 os_prefix=NTP/
 overlay_prefix=overlays-NTP/
