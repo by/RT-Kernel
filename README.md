@@ -82,7 +82,7 @@ sudo make modules_install
 ## Create the required directories once
 ```bash
 sudo mkdir /boot/firmware/NTP
-sudo mkdir /boot/NTP/firmware/overlays-NTP
+sudo mkdir /boot/firmware/NTP/overlays-NTP
 ```
 ## Add this to /boot/config.txt in order to preserve the standard kernel
 ```bash
