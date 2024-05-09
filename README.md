@@ -1,5 +1,5 @@
 # RT-Kernel
-How to compile 64-bit RT-kernel for Raspberry Pi 4 for Debian bookworm (i.e., /boot/firmware/)
+How to compile 64-bit RT-kernel for Raspberry Pi 5 for Debian bookworm (i.e., /boot/firmware/)
 
 ## Prepare the environment
 ```bash
@@ -7,29 +7,30 @@ sudo apt install git bc bison flex libssl-dev make
 sudo apt install libncurses5-dev
 sudo apt install raspberrypi-kernel-headers
 ```
-## Clone the git, in this case kernel 6.8, from from https://github.com/raspberrypi/linux/tree/rpi-6.8.y
+## Clone the git, in this case kernel 6.9, from from https://github.com/raspberrypi/linux/tree/rpi-6.9.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-6.8.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-6.9.y https://github.com/raspberrypi/linux
 ```
-## Get the RT-patch, in this case RT8 for kernel 6.8, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.8/
+## Get the latest RT-patch, in this case RT4 for kernel 6.9-rc6, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.9/
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.8/patch-6.8-rt8.patch.xz
-xz -d patch-6.8-rt8.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.9/patch-6.9-rc6-rt4.patch.xz
+xz -d patch-6.9-rc6-rt4.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
-cd linux
+cd ~/linux
 ```
 ## Undo prior patch if necessary
 ```bash
-#patch -R -p1 < ~/kernel/patch-6.8-rt7.patch
+#patch -R -p1 < ~/kernel/patch-6.9-rc6-rt4.patch
 ```
 ## Update if necessary while scrapping all your local stuff
 ```bash
 git stash
 git pull --rebase
+#git stash clear
 ```
 ## Or simply pull
 ```bash
@@ -37,11 +38,11 @@ git pull --rebase
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.8-rt8.patch
+patch -p1 < ~/kernel/patch-6.9-rc6-rt4.patch
 ```
-## Make for Raspberry Pi 4
+## Make for Raspberry Pi 5
 ```bash
-make bcm2711_defconfig
+make bcm2712_defconfig
 ```
 ## Start menuconfig
 ```bash
@@ -51,32 +52,26 @@ make menuconfig
 ```bash
 ## I've made the following changes specifically for my NTP server to also enable kernel PPS:
 ##-CPU_FREQ_DEFAULT_GOV_POWERSAVE y
-##-CPU_FREQ_GOV_CONSERVATIVE y
-##-CPU_FREQ_GOV_ONDEMAND y
 ##-CPU_FREQ_GOV_PERFORMANCE y
-##-CPU_FREQ_GOV_USERSPACE y
 ##-LEDS_TRIGGER_CPU y
-##-NO_HZ y
-##-PPS_CLIENT_LDISC m
 ##-PREEMPT y
-## LOCALVERSION "-v8" -> "-v8-NTP"
+## LOCALVERSION "-v8-16k" -> "-v8-16k-NTP"
 ## PPS_CLIENT_GPIO m -> y
-##+CPU_FREQ_DEFAULT_GOV_PERFORMANCE y
+##+EFI_DISABLE_RUNTIME n
 ##+HZ_1000 y
-##+IRQ_TIME_ACCOUNTING y
+##+HZ_PERIODIC y
 ##+NTP_PPS y
 ##+PREEMPT_RT y
 ##+RTC_INTF_DEV_UIE_EMUL y
-##-CONTEXT_TRACKING_USER_FORCE n
 ##+VIRT_CPU_ACCOUNTING_GEN y
 ```
-See also https://github.com/by/RT-Kernel/blob/main/bcm2711_defconfig_RT_NTP
+See also https://github.com/by/RT-Kernel/blob/main/bcm2712_defconfig_RT_NTP
 
 ## Build the kernel using all 4 cores (and try gcc optimization level -O3, if you like)
 ```bash
 make prepare
 make -j4 Image.gz modules dtbs
-make CFLAGS='-O3 -march=armv8-a+crc -mtune=cortex-a72' -j4 Image.gz modules dtbs
+make CFLAGS='-O3 -march=native' -j4 Image.gz modules dtbs
 sudo make modules_install
 ```
 ## Create the required directories once
@@ -88,11 +83,11 @@ sudo mkdir /boot/firmware/NTP/overlays-NTP
 ```bash
 os_prefix=NTP/
 overlay_prefix=overlays-NTP/
-kernel=/kernel8-NTP.img
+kernel=/kernel_2712-NTP.img
 ```
 ## Copy the file ino the right directories
 ```bash
-sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/NTP/; sudo cp arch/arm64/boot/dts/overlays/*.dtb* /boot/firmware/NTP/overlays-NTP/; sudo cp arch/arm64/boot/dts/overlays/README /boot/firmware/NTP/overlays-NTP/; sudo cp arch/arm64/boot/Image.gz /boot/firmware/kernel8-NTP.img
+sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/NTP/; sudo cp arch/arm64/boot/dts/overlays/*.dtb* /boot/firmware/NTP/overlays-NTP/; sudo cp arch/arm64/boot/dts/overlays/README /boot/firmware/NTP/overlays-NTP/; sudo cp arch/arm64/boot/Image.gz /boot/firmware/kernel_2712-NTP.img
 ```
 ## Reboot to activate the kernel
 ```bash
