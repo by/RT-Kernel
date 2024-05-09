@@ -96,5 +96,5 @@ sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/NTP/; sudo cp arch/arm
 ```
 ## Reboot to activate the kernel
 ```bash
-#sudo reboot now
+sudo reboot now
 ```
