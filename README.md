@@ -12,17 +12,17 @@ sudo apt install raspberrypi-kernel-headers
 cd ~
 git clone --depth 1 --branch rpi-6.9.y https://github.com/raspberrypi/linux
 ```
-## Get the latest RT-patch, in this case RT4 for kernel 6.9-rc6, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.9/
+## Get the latest RT-patch, in this case RT5 for kernel 6.9, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.9/
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.9/patch-6.9-rc6-rt4.patch.xz
-xz -d patch-6.9-rc6-rt4.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.9/patch-6.9-rt5.patch.xz
+xz -d patch-6.9-rt5.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
 cd ~/linux
 ```
-## Undo prior patch if necessary
+## Undo prior patch, if necessary
 ```bash
 #patch -R -p1 < ~/kernel/patch-6.9-rc6-rt4.patch
 ```
@@ -38,7 +38,7 @@ git pull --rebase
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.9-rc6-rt4.patch
+patch -p1 < ~/kernel/patch-6.9-rt5.patch
 ```
 ## Make for Raspberry Pi 5
 ```bash
