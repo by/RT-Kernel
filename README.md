@@ -22,7 +22,7 @@ xz -d patch-6.9-rt5.patch.xz
 ```bash
 cd ~/linux
 ```
-## Undo prior patch, if necessary, for example
+## Undo prior patch, if necessary, in this case the one for 6.9-rc6-rt4
 ```bash
 #patch -R -p1 < ~/kernel/patch-6.9-rc6-rt4.patch
 ```
