@@ -6,6 +6,8 @@ How to compile 64-bit RT-kernel for Raspberry Pi 5 for Debian bookworm (i.e., /b
 sudo apt install git bc bison flex libssl-dev make
 sudo apt install libncurses5-dev
 sudo apt install raspberrypi-kernel-headers
+
+mkdir ~/kernel
 ```
 ## Clone the git, in this case kernel 6.10, from from https://github.com/raspberrypi/linux/tree/rpi-6.10.y
 ```bash
