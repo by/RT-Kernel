@@ -24,7 +24,7 @@ xz -d patch-6.10-rc2-rt2.patch.xz
 ```bash
 cd ~/linux
 ```
-## Undo prior patch, if necessary, in this case the one for 6.10-rc1-rt1
+## Undo prior patch, if necessary, in this case the one for 6.10-rc1-rt1 – please perform this only, if you've applied a patch before!
 ```bash
 #patch -R -p1 < ~/kernel/patch-6.10-rc1-rt1.patch
 ```
