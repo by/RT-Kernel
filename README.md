@@ -14,19 +14,19 @@ mkdir ~/kernel
 cd ~
 git clone --depth 1 --branch rpi-6.10.y https://github.com/raspberrypi/linux
 ```
-## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT10 for kernel 6.10-rc6, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.10/ respectively
+## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT11 for kernel 6.10-rc6, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.10/ respectively
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.10/patch-6.10-rc6-rt10.patch.xz
-xz -d patch-6.10-rc6-rt10.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.10/patch-6.10-rc6-rt11.patch.xz
+xz -d patch-6.10-rc6-rt11.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
 cd ~/linux
 ```
-## Undo prior patch, if necessary, in this case the one for 6.10-rc5-rt9 – please perform this only, if you've applied a patch before and the respective kernel patch is still available in ~/kernel!
+## Undo prior patch, if necessary, in this case the one for 6.10-rc6-rt10 – please perform this only, if you've applied a patch before and the respective kernel patch is still available in ~/kernel!
 ```bash
-#patch -R -p1 < ~/kernel/patch-6.10-rc5-rt9.patch
+#patch -R -p1 < ~/kernel/patch-6.10-rc6-rt10.patch
 ```
 ## Update if necessary while scrapping all your local stuff
 ```bash
@@ -41,7 +41,7 @@ P.S.: If resetting and updating your local (git-) environment with the last two 
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.10-rc6-rt10.patch
+patch -p1 < ~/kernel/patch-6.10-rc6-rt11.patch
 ```
 ## Make for Raspberry Pi 5
 ```bash
