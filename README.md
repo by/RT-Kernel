@@ -71,7 +71,7 @@ make menuconfig
 +NTP_PPS y
 +PREEMPT_RT y
 +RTC_INTF_DEV_UIE_EMUL y
-+VIRT_CPU_ACCOUNTING_GEN y
++STRICT_DEVMEM n
 ```
 See also https://github.com/by/RT-Kernel/blob/main/bcm2712_defconfig_RT_NTP
 
