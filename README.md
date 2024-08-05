@@ -9,24 +9,24 @@ sudo apt install raspberrypi-kernel-headers
 
 mkdir ~/kernel
 ```
-## Clone the git, in this case kernel 6.10, from from https://github.com/raspberrypi/linux/tree/rpi-6.10.y
+## Clone the git, in this case kernel 6.11, from from https://github.com/raspberrypi/linux/tree/rpi-6.11.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-6.10.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-6.11.y https://github.com/raspberrypi/linux
 ```
-## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT14 for kernel 6.10.2, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.10/ respectively
+## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT1 for kernel 6.11-rc1, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.10/ respectively
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.10/patch-6.10.2-rt14.patch.xz
-xz -d patch-6.10.2-rt14.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/patch-6.11-rc1-rt1.patch.xz
+xz -d patch-6.11-rc1-rt1.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
 cd ~/linux
 ```
-## Undo prior patch, if necessary, in this case the one for 6.10.2-rt13 – please perform this only, if you've applied a patch before and the respective kernel patch is still available in ~/kernel!
+## Undo prior patch, if necessary, in this case the one for 6.11-rc1-rt1 – please perform this only, if you've applied a patch before and the respective kernel patch is still available in ~/kernel!
 ```bash
-#patch -R -p1 < ~/kernel/patch-6.10.2-rt13.patch
+#patch -R -p1 < ~/kernel/patch-6.11-rc1-rt1.patch
 ```
 ## Update if necessary while scrapping all your local stuff
 ```bash
@@ -41,7 +41,7 @@ P.S.: If resetting and updating your local (git-) environment with the last two 
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.10.2-rt14.patch
+patch -p1 < ~/kernel/patch-6.11-rc1-rt1.patch
 ```
 ## Make for Raspberry Pi 5
 ```bash
