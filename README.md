@@ -101,3 +101,7 @@ sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/NTP/; sudo cp arch/arm
 ```bash
 sudo reboot now
 ```
+## Update the firmware (but not the standard kernel)
+```bash
+sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-6.11.y
+```
