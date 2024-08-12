@@ -14,11 +14,11 @@ mkdir ~/kernel
 cd ~
 git clone --depth 1 --branch rpi-6.11.y https://github.com/raspberrypi/linux
 ```
-## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT1 for kernel 6.11-rc1, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/ respectively
+## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT2 for kernel 6.11-rc3, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/ respectively
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/patch-6.11-rc1-rt1.patch.xz
-xz -d patch-6.11-rc1-rt1.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/patch-6.11-rc3-rt2.patch.xz
+xz -d patch-6.11-rc3-rt2.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
@@ -41,7 +41,7 @@ P.S.: If resetting and updating your local (git-) environment with the last two 
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.11-rc1-rt1.patch
+patch -p1 < ~/kernel/patch-6.11-rc3-rt2.patch
 ```
 ## Make for Raspberry Pi 5
 ```bash
