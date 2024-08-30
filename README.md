@@ -14,19 +14,19 @@ mkdir ~/kernel
 cd ~
 git clone --depth 1 --branch rpi-6.11.y https://github.com/raspberrypi/linux
 ```
-## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT3 for kernel 6.11-rc3, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/ respectively
+## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT5 for kernel 6.11-rc5, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/ respectively
 ```bash
 cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/patch-6.11-rc3-rt3.patch.xz
-xz -d patch-6.11-rc3-rt3.patch.xz
+wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/patch-6.11-rc5-rt5.patch.xz
+xz -d patch-6.11-rc5-rt5.patch.xz
 ```
 ## Go back into the cloned linux
 ```bash
 cd ~/linux
 ```
-## Undo prior patch, if necessary, in this case the one for 6.11-rc3-rt2 – please perform this only, if you've applied a patch before and the respective kernel patch is still available in ~/kernel!
+## Undo prior patch, if necessary, in this case the one for 6.11-rc3-rt3 – please perform this only, if you've applied a patch before and the respective kernel patch is still available in ~/kernel!
 ```bash
-#patch -R -p1 < ~/kernel/patch-6.11-rc3-rt2.patch
+#patch -R -p1 < ~/kernel/patch-6.11-rc3-rt3.patch
 ```
 ## Update if necessary while scrapping all your local stuff
 ```bash
@@ -41,7 +41,7 @@ P.S.: If resetting and updating your local (git-) environment with the last two 
 ```
 ## Patch the kernel
 ```bash
-patch -p1 < ~/kernel/patch-6.11-rc3-rt3.patch
+patch -p1 < ~/kernel/patch-6.11-rc5-rt5.patch
 ```
 ## Make for Raspberry Pi 5
 ```bash
@@ -75,12 +75,12 @@ make menuconfig
 ```
 See also https://github.com/by/RT-Kernel/blob/main/bcm2712_defconfig_RT_NTP
 
-## Build the kernel using all 4 cores (and try gcc optimization level -O3, if you like)
+## Build the kernel using all cores (and try gcc optimization level -O3, if you like)
 ```bash
 make prepare
-make -j4 Image.gz modules dtbs
+make -j6 Image.gz modules dtbs # recommendation is 1.5 times the number of cores (=4), which equals 6
 make CFLAGS='-O3 -march=native' -j4 Image.gz modules dtbs
-sudo make modules_install
+sudo make -j6 modules_install # recommendation is 1.5 times the number of cores (=4), which equals 6
 ```
 ## Create the required directories once
 ```bash
