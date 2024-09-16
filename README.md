@@ -14,7 +14,7 @@ mkdir ~/kernel
 cd ~
 git clone --depth 1 --branch rpi-6.11.y https://github.com/raspberrypi/linux
 ```
-## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT5 for kernel 6.11.0, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/ respectively
+## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT7 for kernel 6.11.0, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/ respectively
 ```bash
 cd ~/kernel
 wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/patch-6.11-rt7.patch.xz
