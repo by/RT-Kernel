@@ -9,39 +9,23 @@ sudo apt install raspberrypi-kernel-headers
 
 mkdir ~/kernel
 ```
-## Clone the git, in this case kernel 6.11, from from https://github.com/raspberrypi/linux/tree/rpi-6.11.y
+## Clone the git, in this case kernel 6.12, from from https://github.com/raspberrypi/linux/tree/rpi-6.12.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-6.11.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-6.12.y https://github.com/raspberrypi/linux
 ```
-## Get the latest RT-patch from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/, in this case RT7 for kernel 6.11.0, from https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/ respectively
-```bash
-cd ~/kernel
-wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.11/patch-6.11-rt7.patch.xz
-xz -d patch-6.11-rt7.patch.xz
-```
-## Go back into the cloned linux
-```bash
-cd ~/linux
-```
-## Undo prior patch, if necessary, in this case the one for 6.11-rc5-rt5 – please perform this only, if you've applied a patch before and the respective kernel patch is still available in ~/kernel!
-```bash
-#patch -R -p1 < ~/kernel/patch-6.11-rc5-rt5.patch
-```
+## Starting with linux kernel 6.12, the RT-patch is rolled onto the mainline codebase for ARM64 architexture (and some others), so no need to apply RT-patches anymore!
+
 ## Update if necessary while scrapping all your local stuff
 ```bash
 git stash
 git pull --rebase
 #git stash clear
 ```
-P.S.: If resetting and updating your local (git-) environment with the last two steps does not work for any reason, you can always run `sudo rm -rd ~/linux` to start from scratch @ https://github.com/by/RT-Kernel?tab=readme-ov-file#clone-the-git-in-this-case-kernel-610-from-from-httpsgithubcomraspberrypilinuxtreerpi-610y
+P.S.: If resetting and updating your local (git-) environment with the last two steps does not work for any reason, you can always run `sudo rm -rd ~/linux` to start from scratch @ https://github.com/by/RT-Kernel?tab=readme-ov-file#clone-the-git-in-this-case-kernel-612-from-from-httpsgithubcomraspberrypilinuxtreerpi-612y
 ## Or simply pull
 ```bash
 #git pull
-```
-## Patch the kernel
-```bash
-patch -p1 < ~/kernel/patch-6.11-rt7.patch
 ```
 ## Make for Raspberry Pi 5
 ```bash
@@ -103,5 +87,5 @@ sudo reboot now
 ```
 ## Update the firmware (but not the standard kernel)
 ```bash
-sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-6.11.y
+sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-6.12.y
 ```
