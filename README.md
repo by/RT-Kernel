@@ -9,10 +9,10 @@ sudo apt install raspberrypi-kernel-headers
 
 mkdir ~/kernel
 ```
-## Clone the git, in this case kernel 6.12, from from https://github.com/raspberrypi/linux/tree/rpi-6.12.y
+## Clone the git, in this case kernel 6.13, from from https://github.com/raspberrypi/linux/tree/rpi-6.13.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-6.12.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-6.13.y https://github.com/raspberrypi/linux
 ```
 ## *NEW: starting with linux kernel 6.12, the RT-patch is rolled onto the mainline codebase for ARM64 architexture (and some others), so no need to apply RT-patches anymore!*
 
@@ -86,5 +86,5 @@ sudo reboot now
 ```
 ## Update the firmware (but not the standard kernel)
 ```bash
-sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-6.12.y
+sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-6.13.y
 ```
