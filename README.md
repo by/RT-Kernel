@@ -38,19 +38,19 @@ make menuconfig
 ## Select General Setup/Preemption Model/Fully Preemptible Kernel (Real-Time)
 ```bash
 ## I've made the following changes specifically for my NTP server to also enable kernel PPS:
--CPU_FREQ_DEFAULT_GOV_POWERSAVE y
+sudo ~/linux/scripts/diffconfig ~/linux/arch/arm64/configs/bcm2712_defconfig ~/linux/defconfig
+-CPU_FREQ_DEFAULT_GOV_ONDEMAND y
 -CPU_FREQ_GOV_CONSERVATIVE y
--CPU_FREQ_GOV_ONDEMAND y
--CPU_FREQ_GOV_PERFORMANCE y
+-CPU_FREQ_GOV_POWERSAVE y
 -CPU_FREQ_GOV_SCHEDUTIL y
 -CPU_FREQ_GOV_USERSPACE y
+-IR_GPIO_TX m
 -LEDS_TRIGGER_CPU y
 -NO_HZ y
 -PREEMPT y
  LOCALVERSION "-v8-16k" -> "-v8-16k-NTP"
  PPS_CLIENT_GPIO m -> y
 +CPU_FREQ_DEFAULT_GOV_PERFORMANCE y
-+CPU_IDLE_GOV_MENU y
 +EFI_DISABLE_RUNTIME n
 +HZ_1000 y
 +NTP_PPS y
