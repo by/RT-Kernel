@@ -88,3 +88,8 @@ sudo reboot now
 ```bash
 sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-6.13.y
 ```
+
+## Build status for official rpi-6.13.y from https://github.com/raspberrypi/linux:
+[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-6.13.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
+
+[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-6.13.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
