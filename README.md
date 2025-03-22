@@ -47,7 +47,6 @@ sudo ~/linux/scripts/diffconfig ~/linux/arch/arm64/configs/bcm2712_defconfig ~/l
 -LEDS_TRIGGER_CPU y
 -NO_HZ y
 -PREEMPT y
--SND_PISOUND_MICRO m
  LOCALVERSION "-v8-16k" -> "-v8-16k-NTP"
  PPS_CLIENT_GPIO m -> y
 +CPU_FREQ_DEFAULT_GOV_PERFORMANCE y
