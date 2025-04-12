@@ -44,6 +44,7 @@ sudo ~/linux/scripts/diffconfig ~/linux/arch/arm64/configs/bcm2712_defconfig ~/l
 -CPU_FREQ_GOV_POWERSAVE y
 -CPU_FREQ_GOV_SCHEDUTIL y
 -CPU_FREQ_GOV_USERSPACE y
+-IR_GPIO_TX m
 -LEDS_TRIGGER_CPU y
 -NO_HZ y
 -PREEMPT y
