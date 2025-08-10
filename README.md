@@ -56,6 +56,7 @@ sudo ~/linux/scripts/diffconfig ~/linux/arch/arm64/configs/bcm2712_defconfig ~/l
 +NTP_PPS y
 +PREEMPT_RT y
 +RTC_INTF_DEV_UIE_EMUL y
++TIMERLAT_TRACER y
 ```
 See also https://github.com/by/RT-Kernel/blob/main/bcm2712_defconfig_RT_NTP
 
