@@ -9,7 +9,7 @@ sudo apt install raspberrypi-kernel-headers
 
 mkdir ~/kernel
 ```
-## Clone the git, in this case kernel 6.16, from from https://github.com/raspberrypi/linux/tree/rpi-6.17.y
+## Clone the git, in this case kernel 6.17, from from https://github.com/raspberrypi/linux/tree/rpi-6.17.y
 ```bash
 cd ~
 git clone --depth 1 --branch rpi-6.17.y https://github.com/raspberrypi/linux
