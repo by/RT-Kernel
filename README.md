@@ -1,5 +1,5 @@
 # RT-Kernel
-How to compile 64-bit RT-kernel for Raspberry Pi 5 for Debian bookworm (i.e., /boot/firmware/)
+How to compile 64-bit RT-kernel for Raspberry Pi 5 for Debian bookworm onwards incl. trixie (i.e., /boot/firmware/)
 
 ## Prepare the environment
 ```bash
