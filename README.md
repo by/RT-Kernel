@@ -22,7 +22,7 @@ git stash
 git pull --rebase
 #git stash clear
 ```
-P.S.: If resetting and updating your local (git-) environment with the last two steps does not work for any reason, you can always run `sudo rm -rd ~/linux` to start from scratch @ https://github.com/by/RT-Kernel?tab=readme-ov-file#clone-the-git-in-this-case-kernel-618-from-from-httpsgithubcomraspberrypilinuxtreerpi-6178
+P.S.: If resetting and updating your local (git-) environment with the last two steps does not work for any reason, you can always run `sudo rm -rd ~/linux` to start from scratch @ https://github.com/by/RT-Kernel?tab=readme-ov-file#clone-the-git-in-this-case-kernel-618-from-from-httpsgithubcomraspberrypilinuxtreerpi-618
 ## Or simply pull
 ```bash
 #git pull
