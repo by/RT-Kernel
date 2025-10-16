@@ -9,10 +9,10 @@ sudo apt install raspberrypi-kernel-headers
 
 mkdir ~/kernel
 ```
-## Clone the git, in this case kernel 6.17, from from https://github.com/raspberrypi/linux/tree/rpi-6.17.y
+## Clone the git, in this case kernel 6.18, from from https://github.com/raspberrypi/linux/tree/rpi-6.18.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-6.17.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-6.18.y https://github.com/raspberrypi/linux
 ```
 ## *NEW: starting with linux kernel 6.12, the RT-patch is rolled onto the mainline codebase for ARM64 architexture (and some others), so no need to apply RT-patches anymore!*
 
@@ -22,7 +22,7 @@ git stash
 git pull --rebase
 #git stash clear
 ```
-P.S.: If resetting and updating your local (git-) environment with the last two steps does not work for any reason, you can always run `sudo rm -rd ~/linux` to start from scratch @ https://github.com/by/RT-Kernel?tab=readme-ov-file#clone-the-git-in-this-case-kernel-617-from-from-httpsgithubcomraspberrypilinuxtreerpi-617y
+P.S.: If resetting and updating your local (git-) environment with the last two steps does not work for any reason, you can always run `sudo rm -rd ~/linux` to start from scratch @ https://github.com/by/RT-Kernel?tab=readme-ov-file#clone-the-git-in-this-case-kernel-618-from-from-httpsgithubcomraspberrypilinuxtreerpi-6178
 ## Or simply pull
 ```bash
 #git pull
@@ -62,7 +62,7 @@ See also https://github.com/by/RT-Kernel/blob/main/bcm2712_defconfig_RT_NTP
 ## Build the kernel using all cores (and try gcc optimization level -O3, if you like)
 ```bash
 make prepare
-make CFLAGS='-O3 -march=native' -j6 Image.gz modules dtbs # recommendation is 1.5 times the number of cores (=4), which equals 6
+make CFLAGS='-O3 -march=native' -j6 Image.gz modules dtbs # recommendation is 1.5 times the number of cores (=4), which equals 6 -- if you have enough main memory!
 sudo make -j6 modules_install # recommendation is 1.5 times the number of cores (=4), which equals 6
 ```
 ## Create the required directories once
@@ -86,10 +86,10 @@ sudo reboot now
 ```
 ## Update the firmware (but not the standard kernel)
 ```bash
-sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-6.17.y
+sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-6.18.y
 ```
 
-## Build status for official rpi-6.17.y from https://github.com/raspberrypi/linux:
-[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-6.17.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
+## Build status for official rpi-6.18.y from https://github.com/raspberrypi/linux:
+[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-6.18.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
 
-[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-6.17.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
+[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-6.18.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
