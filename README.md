@@ -14,7 +14,7 @@ mkdir ~/kernel
 cd ~
 git clone --depth 1 --branch rpi-6.19.y https://github.com/raspberrypi/linux
 ```
-## *NEW: starting with linux kernel 6.12, the RT-patch is rolled onto the mainline codebase for ARM64 architexture (and some others), so no need to apply RT-patches anymore!*
+## *NEW: starting with linux kernel 6.12, the RT-patch is rolled into the mainline codebase for ARM64 architexture (and some others), so no need to apply RT-patches anymore!*
 
 ## Update if necessary while scrapping all your local stuff
 ```bash
