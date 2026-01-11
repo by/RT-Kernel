@@ -68,17 +68,22 @@ sudo make -j6 modules_install # recommendation is 1.5 times the number of cores 
 ## Create the required directories once
 ```bash
 sudo mkdir /boot/firmware/NTP
-sudo mkdir /boot/firmware/NTP/overlays-NTP
+sudo mkdir /boot/firmware/NTP/overlays
 ```
+## Create a copy of the kernel-specific parameter file cmdline.txt
+```bash
+sudo cp -v /boot/firmware/cmdline.txt /boot/firmware/NTP/cmdline.txt
+```
+The newly built kernel is now also moved into ```/boot/firmware/NTP``` and expects its own ```cmdline.txt``` there, too; upsis is that you can create an RT-kernel-specific ```cmdline.txt``` right here.
+
 ## Add this to /boot/firmware/config.txt in order to preserve the standard kernel
 ```bash
 os_prefix=NTP/
-overlay_prefix=overlays-NTP/
-kernel=/kernel_2712-NTP.img
+kernel=kernel_2712-NTP.img
 ```
 ## Copy the file ino the right directories
 ```bash
-sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/NTP/; sudo cp arch/arm64/boot/dts/overlays/*.dtb* /boot/firmware/NTP/overlays-NTP/; sudo cp arch/arm64/boot/dts/overlays/README /boot/firmware/NTP/overlays-NTP/; sudo cp arch/arm64/boot/Image.gz /boot/firmware/kernel_2712-NTP.img
+sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/NTP/; sudo cp arch/arm64/boot/dts/overlays/*.dtb* /boot/firmware/NTP/overlays/; sudo cp arch/arm64/boot/dts/overlays/README /boot/firmware/NTP/overlays/; sudo cp arch/arm64/boot/Image.gz /boot/firmware/NTP/kernel_2712-NTP.img
 ```
 ## Reboot to activate the kernel
 ```bash
