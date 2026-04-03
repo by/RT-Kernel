@@ -9,11 +9,13 @@ sudo apt install raspberrypi-kernel-headers
 
 mkdir ~/kernel
 ```
+
 ## Clone the git, in this case kernel 7.0, from from https://github.com/raspberrypi/linux/tree/rpi-7.0.y
 ```bash
 cd ~
 git clone --depth 1 --branch rpi-7.0.y https://github.com/raspberrypi/linux
 ```
+
 ## *NEW: starting with linux kernel 6.12, the RT-patch is rolled into the mainline codebase for ARM64 architexture (and some others), so no need to apply RT-patches anymore!*
 
 ## Update if necessary while scrapping all your local stuff
@@ -23,18 +25,22 @@ git pull --rebase
 #git stash clear
 ```
 P.S.: If resetting and updating your local (git-) environment with the last two steps does not work for any reason, you can always run `sudo rm -rd ~/linux` to start from scratch @ https://github.com/by/RT-Kernel?tab=readme-ov-file#clone-the-git-in-this-case-kernel-70-from-from-httpsgithubcomraspberrypilinuxtreerpi-70
+
 ## Or simply pull
 ```bash
 #git pull
 ```
+
 ## Make for Raspberry Pi 5
 ```bash
 make bcm2712_defconfig
 ```
+
 ## Start menuconfig
 ```bash
 make menuconfig
 ```
+
 ## Select General Setup/Preemption Model/Fully Preemptible Kernel (Real-Time)
 ```bash
 ## I've made the following changes specifically for my NTP server to also enable kernel PPS:
@@ -64,20 +70,25 @@ make prepare
 make CFLAGS='-O3 -march=native' -j6 Image.gz modules dtbs # recommendation is 1.5 times the number of cores (=4), which equals 6 -- if you have enough main memory!
 sudo make -j6 modules_install # recommendation is 1.5 times the number of cores (=4), which equals 6
 ```
+
 ## Create the required directories once
 ```bash
 sudo mkdir /boot/firmware/NTP
 sudo mkdir /boot/firmware/NTP/overlays
 ```
+
 ## Create a copy of the kernel-specific parameter file cmdline.txt
 ```bash
 sudo cp -v /boot/firmware/cmdline.txt /boot/firmware/NTP/cmdline.txt
 ```
 The newly built kernel is now also moved into ```/boot/firmware/NTP``` and expects its own ```cmdline.txt``` there, too; upside is that you can create an RT-kernel-specific ```cmdline.txt``` right here.
+
 ## Regenerate ```iniramfs``` for your custom kernel
 ```bash
 sudo mkinitramfs -o /boot/firmware/NTP/initramfs_2712-NTP $(uname -r)
 ```
+and ignore the warning about not being able to check availability of zstd compression support (```CONFIG_RD_ZSTD```) due to missing kernel configuration ```/boot/config-$(uname -r)```; here, only a copy of the file in this very directory is missing, but ``ìnitramfs```correct assumes it to be available (see the respective warning message).
+
 ## Add this once to /boot/firmware/config.txt in order to preserve the standard kernel
 ```bash
 os_prefix=NTP/
@@ -88,6 +99,7 @@ and add to enable ```initramfs``` for your custom kernel
 #auto_initramfs=1 as it apparently does not properly follow the changed directory os_prefix
 initramfs initramfs_2712-NTP followkernel
 ```
+
 ## Copy the file ino the right directories
 ```bash
 sudo cp arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/NTP/; sudo cp arch/arm64/boot/dts/overlays/*.dtb* /boot/firmware/NTP/overlays/; sudo cp arch/arm64/boot/dts/overlays/README /boot/firmware/NTP/overlays/; sudo cp arch/arm64/boot/Image.gz /boot/firmware/NTP/kernel_2712-NTP.img
