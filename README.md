@@ -74,11 +74,19 @@ sudo mkdir /boot/firmware/NTP/overlays
 sudo cp -v /boot/firmware/cmdline.txt /boot/firmware/NTP/cmdline.txt
 ```
 The newly built kernel is now also moved into ```/boot/firmware/NTP``` and expects its own ```cmdline.txt``` there, too; upside is that you can create an RT-kernel-specific ```cmdline.txt``` right here.
-
-## Add this to /boot/firmware/config.txt in order to preserve the standard kernel
+## Regenerate ```iniramfs``` for your custom kernel
+```bash
+sudo mkinitramfs -o /boot/firmware/NTP/initramfs_2712-NTP $(uname -r)
+```
+## Add this once to /boot/firmware/config.txt in order to preserve the standard kernel
 ```bash
 os_prefix=NTP/
 kernel=kernel_2712-NTP.img
+```
+and add to enable ```initramfs``` for your custom kernel
+```bash
+#auto_initramfs=1 as it apparently does not properly follow the changed directory os_prefix
+initramfs initramfs_2712-NTP followkernel
 ```
 ## Copy the file ino the right directories
 ```bash
