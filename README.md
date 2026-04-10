@@ -112,8 +112,17 @@ sudo reboot now
 ```bash
 sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-7.0.y
 ```
+and if it tells you about potential issues with using custom ```ìnitramfs```, then just  regenerate yours gain (see https://github.com/by/RT-Kernel/edit/main/README.md#regenerate-iniramfs-for-your-custom-kernel).
 
 ## Build status for official rpi-7.0.y from https://github.com/raspberrypi/linux:
 [![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-7.0.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
 
 [![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-7.0.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
+
+## A short note on recent PPS-performance enhancing kernel commits
+
+You may have noticed that PPS is not performing stelarly on your Pi5; part of the reason is that there is no longer a direct connection to the UART but only via the new RP1 chip, which adds a bit of latency, but also to a bug in the custom kernel code which prevents RP1 GPIO IRQ to follow a given smp_affinity; you can read more about it here https://github.com/raspberrypi/linux/issues/7301 and find a propsoed fix here: https://github.com/raspberrypi/linux/pull/7302. – I hope that my commit will ultimately make it into the Raspberry custom kernel.
+
+On the other hand, the performance of kernel PPS can be significantly enhanced when running under PREEMPT_RT, as there is unnecessary jitter introduce with the current implementation; I've proposed a kernel patch upstream, you can find it here until successfully merged: https://github.com/torvalds/linux/compare/master...by:linux-PPS:pps-rt-v3
+
+Once one or both patches are merged, I will delete the respective line item(s).
