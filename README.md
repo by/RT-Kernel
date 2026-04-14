@@ -121,7 +121,8 @@ and if it tells you about potential issues with using custom ```ìnitramfs```, t
 
 ## A short note on recent PPS-performance enhancing kernel commits
 
-You may have noticed that PPS is not performing stelarly on your Pi5; part of the reason is that there is no longer a direct connection to the UART but only via the new RP1 chip, which adds a bit of latency, but also to a bug in the custom kernel code which prevents RP1 GPIO IRQ to follow a given smp_affinity; you can read more about it here https://github.com/raspberrypi/linux/issues/7301 and find a propsoed fix here: https://github.com/raspberrypi/linux/pull/7302. – I hope that my commit will ultimately make it into the Raspberry custom kernel.
+~~You may have noticed that PPS is not performing stelarly on your Pi5; part of the reason is that there is no longer a direct connection to the UART but only via the new RP1 chip, which adds a bit of latency, but also to a bug in the custom kernel code which prevents RP1 GPIO IRQ to follow a given smp_affinity; you can read more about it here https://github.com/raspberrypi/linux/issues/7301 and find a propsoed fix here: https://github.com/raspberrypi/linux/pull/7302. – I hope that my commit will ultimately make it into the Raspberry custom kernel.~~
+Fixes are now available in 7.0ff.: https://github.com/raspberrypi/linux/commit/30f29f86ebc8343b049361187109133a83135b11 and https://github.com/raspberrypi/linux/commit/8d5acfef4c6dd1c38ca609e353bbd9fc10f0a166
 
 On the other hand, the performance of kernel PPS can be significantly enhanced when running under PREEMPT_RT, as there is unnecessary jitter introduce with the current implementation; I've proposed a kernel patch upstream, you can find it here until successfully merged: https://github.com/torvalds/linux/compare/master...by:linux-PPS:pps-rt-v3
 
