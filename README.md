@@ -43,24 +43,34 @@ make menuconfig
 
 ## Select General Setup/Preemption Model/Fully Preemptible Kernel (Real-Time)
 ```bash
-## I've made the following changes specifically for my NTP server to also enable kernel PPS:
+## I've made the following changes specifically for my NTP server to optimize performance and also enable kernel PPS:
 sudo ~/linux/scripts/diffconfig ~/linux/arch/arm64/configs/bcm2712_defconfig ~/linux/defconfig
+-BLK_DEV_IO_TRACE y
 -CPU_FREQ_DEFAULT_GOV_ONDEMAND y
 -CPU_FREQ_GOV_CONSERVATIVE y
 -CPU_FREQ_GOV_POWERSAVE y
 -CPU_FREQ_GOV_SCHEDUTIL y
 -CPU_FREQ_GOV_USERSPACE y
+-FTRACE_SYSCALLS y
+-FUNCTION_PROFILER y
 -IR_GPIO_TX m
 -LEDS_TRIGGER_CPU y
+-NET_ACT_CTINFO m
 -NO_HZ y
 -PREEMPT y
+-SCHED_TRACER y
+-STACK_TRACER y
  LOCALVERSION "-v8-16k" -> "-v8-16k-NTP"
  PPS_CLIENT_GPIO m -> y
++CONTEXT_TRACKING_USER_FORCE n
 +CPU_FREQ_DEFAULT_GOV_PERFORMANCE y
-+EFI_DISABLE_RUNTIME n
++DEBUG_FS y
 +HZ_1000 y
 +NTP_PPS y
 +PREEMPT_RT y
++RELAY y
++TRACER_SNAPSHOT y
++VIRT_CPU_ACCOUNTING_GEN y
 ```
 See also https://github.com/by/RT-Kernel/blob/main/bcm2712_defconfig_RT_NTP
 
