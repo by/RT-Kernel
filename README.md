@@ -36,49 +36,41 @@ P.S.: If resetting and updating your local (git-) environment with the last two 
 make bcm2712_defconfig
 ```
 
+## Select General Setup/Preemption Model/Fully Preemptible Kernel (Real-Time) with some optimizations (getting rid of some tracer and debugging)
+```bash
+## I've made the following kernel patches specifically for my NTP server to optimize performance and also enable kernel PPS (in fragment form!):
+CONFIG_LOCALVERSION="-v8-16k-NTP"
+CONFIG_PPS_CLIENT_GPIO=y
+# CONFIG_CONTEXT_TRACKING_USER_FORCE is not set
+CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
+CONFIG_DEBUG_FS=y
+CONFIG_HZ_1000=y
+CONFIG_KPROBES=y
+CONFIG_MAGIC_SYSRQ=y
+CONFIG_NTP_PPS=y
+CONFIG_PREEMPT_RT=y
+CONFIG_RELAY=y
+CONFIG_TRACER_SNAPSHOT=y
+CONFIG_VIRT_CPU_ACCOUNTING_GEN=y
+```
+See also https://github.com/by/RT-Kernel/blob/main/RT_NTP.config
+
+## Copy the patched fragment from https://github.com/by/RT-Kernel/blob/main/RT_NTP.config and overlay onto the existing .config
+```bash
+cp ~/bcm2712_defconfig_RT_NTP_diff ~/linux/kernel/configs/RT_NTP.config
+make RT_NTP.config
+```
+
 ## Start menuconfig
 ```bash
 make menuconfig
 ```
 
-## Select General Setup/Preemption Model/Fully Preemptible Kernel (Real-Time)
-```bash
-## I've made the following changes specifically for my NTP server to optimize performance and also enable kernel PPS:
-sudo ~/linux/scripts/diffconfig ~/linux/arch/arm64/configs/bcm2712_defconfig ~/linux/defconfig
--BLK_DEV_IO_TRACE y
--CPU_FREQ_DEFAULT_GOV_ONDEMAND y
--CPU_FREQ_GOV_CONSERVATIVE y
--CPU_FREQ_GOV_POWERSAVE y
--CPU_FREQ_GOV_SCHEDUTIL y
--CPU_FREQ_GOV_USERSPACE y
--FTRACE_SYSCALLS y
--FUNCTION_PROFILER y
--IR_GPIO_TX m
--LEDS_TRIGGER_CPU y
--NET_ACT_CTINFO m
--NO_HZ y
--PREEMPT y
--SCHED_TRACER y
--STACK_TRACER y
- LOCALVERSION "-v8-16k" -> "-v8-16k-NTP"
- PPS_CLIENT_GPIO m -> y
-+CONTEXT_TRACKING_USER_FORCE n
-+CPU_FREQ_DEFAULT_GOV_PERFORMANCE y
-+DEBUG_FS y
-+HZ_1000 y
-+NTP_PPS y
-+PREEMPT_RT y
-+RELAY y
-+TRACER_SNAPSHOT y
-+VIRT_CPU_ACCOUNTING_GEN y
-```
-See also https://github.com/by/RT-Kernel/blob/main/bcm2712_defconfig_RT_NTP
-
 ## Build the kernel using all cores
 ```bash
 make prepare
 make -j6 Image.gz modules dtbs # recommendation is 1.5 times the number of cores (=4), which equals 6 -- if you have enough main memory!
-sudo make -j6 modules_install # recommendation is 1.5 times the number of cores (=4), which equals 6
+sudo make -j6 modules_install  # recommendation is 1.5 times the number of cores (=4), which equals 6
 ```
 
 ## Create the required directories once
@@ -93,9 +85,9 @@ sudo cp -v /boot/firmware/cmdline.txt /boot/firmware/NTP/cmdline.txt
 ```
 The newly built kernel is now also moved into ```/boot/firmware/NTP``` and expects its own ```cmdline.txt``` there, too; upside is that you can create an RT-kernel-specific ```cmdline.txt``` right here.
 
-## Regenerate ```iniramfs``` for your custom kernel
+## Regenerate ```iniramfs``` for your custom kernel (still in ~/linux)
 ```bash
-sudo mkinitramfs -o /boot/firmware/NTP/initramfs_2712-NTP $(uname -r)
+KVER=$(make -s kernelrelease); sudo mkinitramfs -o /boot/firmware/NTP/initramfs_2712-NTP "$KVER"
 ```
 and ignore the warning about not being able to check availability of zstd compression support (```CONFIG_RD_ZSTD```) due to missing kernel configuration ```/boot/config-$(uname -r)```; here, only a copy of the file in this very directory is missing, but ``ìnitramfs```correct assumes it to be available (see the respective warning message).
 
