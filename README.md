@@ -74,10 +74,10 @@ sudo ~/linux/scripts/diffconfig ~/linux/arch/arm64/configs/bcm2712_defconfig ~/l
 ```
 See also https://github.com/by/RT-Kernel/blob/main/bcm2712_defconfig_RT_NTP
 
-## Build the kernel using all cores (and try gcc optimization level -O3, if you like)
+## Build the kernel using all cores
 ```bash
 make prepare
-make CFLAGS='-O3 -march=native' -j6 Image.gz modules dtbs # recommendation is 1.5 times the number of cores (=4), which equals 6 -- if you have enough main memory!
+make -j6 Image.gz modules dtbs # recommendation is 1.5 times the number of cores (=4), which equals 6 -- if you have enough main memory!
 sudo make -j6 modules_install # recommendation is 1.5 times the number of cores (=4), which equals 6
 ```
 
