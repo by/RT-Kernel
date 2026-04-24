@@ -88,7 +88,7 @@ The newly built kernel is now also moved into ```/boot/firmware/NTP``` and expec
 
 ## Regenerate ```iniramfs``` for your custom kernel (still in ~/linux)
 ```bash
-KVER=$(make -s kernelrelease); sudo mkinitramfs -o /boot/firmware/NTP/initramfs_2712-NTP "$KVER"
+sudo mkinitramfs -o /boot/firmware/NTP/initramfs_2712-NTP "$(make -s kernelrelease)"
 ```
 and ignore the warning about not being able to check availability of zstd compression support (```CONFIG_RD_ZSTD```) due to missing kernel configuration ```/boot/config-$(uname -r)```; here, only a copy of the file in this very directory is missing, but ``ìnitramfs```correct assumes it to be available (see the respective warning message).
 
