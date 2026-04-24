@@ -61,9 +61,10 @@ cp ~/bcm2712_defconfig_RT_NTP_diff ~/linux/kernel/configs/RT_NTP.config
 make RT_NTP.config
 ```
 
-## Start menuconfig
+## Start menuconfig for further manual patches
 ```bash
 make menuconfig
+# Enter whatever you deem appropriate via the menuconfig UI
 ```
 
 ## Build the kernel using all cores
