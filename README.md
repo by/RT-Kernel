@@ -41,19 +41,12 @@ make bcm2712_defconfig
 ## I've made the following kernel patches specifically for my NTP server to optimize performance and also enable kernel PPS (in fragment form!):
 CONFIG_LOCALVERSION="-v8-16k-NTP"
 CONFIG_PPS_CLIENT_GPIO=y
-# CONFIG_CONTEXT_TRACKING_USER_FORCE is not set
 CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
-CONFIG_DEBUG_FS=y
 CONFIG_HZ_1000=y
-CONFIG_KPROBES=y
-CONFIG_MAGIC_SYSRQ=y
 CONFIG_NTP_PPS=y
 CONFIG_PREEMPT_RT=y
-CONFIG_RELAY=y
-CONFIG_TRACER_SNAPSHOT=y
-CONFIG_VIRT_CPU_ACCOUNTING_GEN=y
 ```
-See also https://github.com/by/RT-Kernel/blob/main/RT_NTP.config
+For more optimization, please see  https://github.com/by/RT-Kernel/blob/main/RT_NTP.config
 
 ## Copy the patched fragment from https://github.com/by/RT-Kernel/blob/main/RT_NTP.config and overlay onto the existing .config
 ```bash
