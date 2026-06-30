@@ -10,10 +10,10 @@ sudo apt install raspberrypi-kernel-headers
 mkdir ~/kernel
 ```
 
-## Clone the git, in this case kernel 7.1, from from https://github.com/raspberrypi/linux/tree/rpi-7.1.y
+## Clone the git, in this case kernel 7.2, from from https://github.com/raspberrypi/linux/tree/rpi-7.2.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-7.1.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-7.2.y https://github.com/raspberrypi/linux
 ```
 
 ## *NEW: starting with linux kernel 6.12, the RT-patch is rolled into the mainline codebase for ARM64 architexture (and some others), so no need to apply RT-patches anymore!*
@@ -288,14 +288,14 @@ sudo reboot now
 ```
 ## Update the firmware (but not the standard kernel)
 ```bash
-sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-7.1.y
+sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-7.2.y
 ```
 and if it tells you about potential issues with using custom ```ìnitramfs```, then just  regenerate yours gain (see https://github.com/by/RT-Kernel/edit/main/README.md#regenerate-iniramfs-for-your-custom-kernel).
 
-## Build status for official rpi-7.1.y from https://github.com/raspberrypi/linux:
-[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-7.1.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
+## Build status for official rpi-7.2.y from https://github.com/raspberrypi/linux:
+[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-7.2.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
 
-[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-7.1.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
+[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-7.2.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
 
 ## A short note on recent PPS-performance enhancing kernel commits
 
