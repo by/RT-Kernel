@@ -265,7 +265,7 @@ The newly built kernel is now also moved into ```/boot/firmware/NTP``` and expec
 ```bash
 sudo mkinitramfs -o /boot/firmware/NTP/initramfs_2712-NTP $(make -s kernelrelease)
 ```
-and ignore the warning about not being able to check availability of zstd compression support (```CONFIG_RD_ZSTD```) due to missing kernel configuration ```/boot/config-$(uname -r)```; here, only a copy of the file in this very directory is missing, but ``ìnitramfs```correct assumes it to be available (see the respective warning message).
+and ignore the warning about not being able to check availability of zstd compression support (```CONFIG_RD_ZSTD```) due to missing kernel configuration ```/boot/config-$(uname -r)```; here, only a copy of the file in this very directory is missing, but ```initramfs```correctly assumes it to be available (see the respective warning message).
 
 ## Add this once to /boot/firmware/config.txt in order to preserve the standard kernel
 ```bash
@@ -290,7 +290,7 @@ sudo reboot now
 ```bash
 sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-7.2.y
 ```
-and if it tells you about potential issues with using custom ```ìnitramfs```, then just  regenerate yours gain (see https://github.com/by/RT-Kernel/edit/main/README.md#regenerate-iniramfs-for-your-custom-kernel).
+and if it tells you about potential issues with using custom ```initramfs```, then just  regenerate yours gain (see https://github.com/by/RT-Kernel/blob/main/README.md#regenerate-iniramfs-for-your-custom-kernel-still-in-linux).
 
 ## Build status for official rpi-7.2.y from https://github.com/raspberrypi/linux:
 [![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-7.2.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
