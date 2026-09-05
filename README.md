@@ -10,10 +10,10 @@ sudo apt install raspberrypi-kernel-headers
 mkdir ~/kernel
 ```
 
-## Clone the git, in this case kernel 7.2, from from https://github.com/raspberrypi/linux/tree/rpi-7.2.y
+## Clone the git, in this case kernel 7.3, from from https://github.com/raspberrypi/linux/tree/rpi-7.3.y
 ```bash
 cd ~
-git clone --depth 1 --branch rpi-7.2.y https://github.com/raspberrypi/linux
+git clone --depth 1 --branch rpi-7.3.y https://github.com/raspberrypi/linux
 ```
 
 ## *NEW: starting with linux kernel 6.12, the RT-patch is rolled into the mainline codebase for ARM64 architexture (and some others), so no need to apply RT-patches anymore!*
@@ -288,20 +288,21 @@ sudo reboot now
 ```
 ## Update the firmware (but not the standard kernel)
 ```bash
-sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-7.2.y
+sudo SKIP_KERNEL=1 PRUNE_MODULES=1 rpi-update rpi-7.3.y
 ```
 and if it tells you about potential issues with using custom ```initramfs```, then just  regenerate yours gain (see https://github.com/by/RT-Kernel/blob/main/README.md#regenerate-iniramfs-for-your-custom-kernel-still-in-linux).
 
-## Build status for official rpi-7.2.y from https://github.com/raspberrypi/linux:
-[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-7.2.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
+## Build status for official rpi-7.3.y from https://github.com/raspberrypi/linux:
+[![Pi kernel build tests](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml/badge.svg?branch=rpi-7.3.y)](https://github.com/raspberrypi/linux/actions/workflows/kernel-build.yml)
 
-[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-7.2.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
+[![dtoverlaycheck](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml/badge.svg?branch=rpi-7.3.y)](https://github.com/raspberrypi/linux/actions/workflows/dtoverlaycheck.yml)
 
 ## A short note on recent PPS-performance enhancing kernel commits
 
-~~You may have noticed that PPS is not performing stelarly on your Pi5; part of the reason is that there is no longer a direct connection to the UART but only via the new RP1 chip, which adds a bit of latency, but also to a bug in the custom kernel code which prevents RP1 GPIO IRQ to follow a given smp_affinity; you can read more about it here https://github.com/raspberrypi/linux/issues/7301 and find a propsoed fix here: https://github.com/raspberrypi/linux/pull/7302. – I hope that my commit will ultimately make it into the Raspberry custom kernel.~~
+You may have noticed that PPS is not performing stellarly on your Pi5; part of the reason is that there is no longer a direct connection to the UART but only via the new RP1 chip, which adds a bit of latency, but also to a bug in the custom kernel code which prevents RP1 GPIO IRQ to follow a given smp_affinity; you can read more about it here https://github.com/raspberrypi/linux/issues/7301. ~~and find a propsoed fix here: https://github.com/raspberrypi/linux/pull/7302. – I hope that my commit will ultimately make it into the Raspberry custom kernel.~~
 Fixes are now available in 7.0ff.: https://github.com/raspberrypi/linux/commit/30f29f86ebc8343b049361187109133a83135b11 and https://github.com/raspberrypi/linux/commit/8d5acfef4c6dd1c38ca609e353bbd9fc10f0a166
 
-On the other hand, the performance of kernel PPS can be significantly enhanced when running under PREEMPT_RT, as there is unnecessary jitter introduce with the current implementation; I've proposed a kernel patch upstream, you can find it here until successfully merged for Raspberry Pis: (https://github.com/raspberrypi/linux/commit/54daaf9cdeb02074217707551beb705f6f8d4c4c) – and we  see it in linux-next (7.3) (https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/pps/clients/pps-gpio.c?id=93781560b2fdd26fa8499d64db8a95a07e1dc902 and https://github.com/torvalds/linux/commit/93781560b2fdd26fa8499d64db8a95a07e1dc902).
+On the other hand, the performance of kernel PPS can be significantly enhanced when running under PREEMPT_RT, as there is unnecessary jitter introduce with the current implementation. ~~I've proposed a kernel patch upstream, you can find it here until successfully merged for Raspberry Pis: (https://github.com/raspberrypi/linux/commit/54daaf9cdeb02074217707551beb705f6f8d4c4c) – and we  see it in linux-next (7.3) (https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/pps/clients/pps-gpio.c?id=93781560b2fdd26fa8499d64db8a95a07e1dc902 and https://github.com/torvalds/linux/commit/93781560b2fdd26fa8499d64db8a95a07e1dc902).~~ 
+Fixes are now available in 7.3ff. and were down-ported for the Raspberry Pi to 6.18ff.: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=93781560b2fdd26fa8499d64db8a95a07e1dc902 and https://github.com/raspberrypi/linux/commit/222a4b4132760c52d6067a2f99c430142b7800a6
 
-Once one or both patches are merged, I will delete the respective line item(s).
+Enjoy!
