@@ -183,7 +183,7 @@ CONFIG_NTP_PPS=y
 
 CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE=y
 #   Sets PERFORMANCE as the default cpufreq governor at boot. PERFORMANCE
-#   pins the CPU at maximum frequency — no DVFS transitions, no entry
+#   pins the CPU at maximum frequency, no DVFS transitions, no entry
 #   into deep idle states for frequency reasons. This is the single
 #   biggest cpufreq-related jitter reduction available. Trade: higher
 #   idle power, slightly higher temperature. For an always-on NTP
@@ -200,8 +200,8 @@ CONFIG_VIRT_CPU_ACCOUNTING_GEN=y
 
 # === ENABLES: useful operational features (no perf benefit) ===
 # Honest disclosure: these don't help NTP precision. They're for
-# you, the operator. Including them in the fragment is a values
-# choice — debuggability vs. minimalism.
+# the operator. Including them in the fragment is a values choice:
+# debuggability vs. minimalism.
 
 CONFIG_KPROBES=y
 #   Dynamic instrumentation: lets you attach probes to kernel functions
@@ -215,7 +215,7 @@ CONFIG_MAGIC_SYSRQ=y
 #   when something is hung. Zero runtime cost. Pure operability.
 
 CONFIG_RELAY=y
-#   Kernel→userspace high-bandwidth relay channels. Used by some tracing
+#   Kernel-->userspace high-bandwidth relay channels. Used by some tracing
 #   tools (blktrace, ftrace's snapshot mode). Honest take: with FTRACE
 #   off, RELAY has very few consumers left in your kernel. You could
 #   probably drop this; I left it because Pi userspace tooling
