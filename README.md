@@ -303,6 +303,6 @@ You may have noticed that PPS is not performing stellarly on your Pi5; part of t
 Fixes are now available in 7.0ff.: https://github.com/raspberrypi/linux/commit/30f29f86ebc8343b049361187109133a83135b11 and https://github.com/raspberrypi/linux/commit/8d5acfef4c6dd1c38ca609e353bbd9fc10f0a166
 
 On the other hand, the performance of kernel PPS can be significantly enhanced when running under PREEMPT_RT, as there is unnecessary jitter introduce with the current implementation. ~~I've proposed a kernel patch upstream, you can find it here until successfully merged for Raspberry Pis: (https://github.com/raspberrypi/linux/commit/54daaf9cdeb02074217707551beb705f6f8d4c4c) – and we  see it in linux-next (7.3) (https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/pps/clients/pps-gpio.c?id=93781560b2fdd26fa8499d64db8a95a07e1dc902 and https://github.com/torvalds/linux/commit/93781560b2fdd26fa8499d64db8a95a07e1dc902).~~ 
-Fixes are now available in 7.3ff. and were down-ported for the Raspberry Pi to 6.18ff.: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=93781560b2fdd26fa8499d64db8a95a07e1dc902 and https://github.com/raspberrypi/linux/commit/222a4b4132760c52d6067a2f99c430142b7800a6
+Fixes are now available in 7.3ff. and were down-ported for the Raspberry Pi to 6.18.44ff.: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=93781560b2fdd26fa8499d64db8a95a07e1dc902 and https://github.com/raspberrypi/linux/commit/222a4b4132760c52d6067a2f99c430142b7800a6
 
 Enjoy!
